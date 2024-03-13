@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import PropTypes from 'prop-types';
 import Blog from "./Blog/Blog";
 
-const Blogs = () => {
+const Blogs = ({addBookmarks,readingTime}) => {
     const [blogs,setBlogs] = useState([]);
-    console.log(blogs)
-
     useEffect(()=>{
         fetch('blogs.json')
         .then(response=> response.json())
@@ -18,10 +17,16 @@ const Blogs = () => {
             <Blog
                 key={blogs.id}
                 blogs={blogs}
+                addBookmarks={addBookmarks}
+                readingTime={readingTime}
                 ></Blog>)
             }
         </div>
     );
 };
 
+Blogs.propTypes={
+    addBookmarks:PropTypes.func.isRequired,
+    readingTime:PropTypes.func.isRequired
+}
 export default Blogs;
